@@ -1,0 +1,25 @@
+ol{
+    padding-left: 20px;
+    width: 30%;
+}
+.users-wrapper{
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+li{
+    list-style: none;
+}
+img{
+    padding-bottom: 20px;
+    width: 35%;
+}
+p{
+    padding: 3px;
+}
+h3{
+    color: #7070bb;
+}
+
+
+

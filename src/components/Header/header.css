@@ -1,0 +1,36 @@
+header{
+    background-color: #e0e9ee;
+    width: 100%;
+    padding: 30px;
+    display: flex;
+    justify-content: space-between;
+    color: black;
+}
+.logo{
+    text-transform: uppercase;
+    text-decoration: none;
+    font-size: 30px;
+    width: 30%;
+    color: #6b6969;
+}
+nav{
+    width: 70%;
+}
+.header-list{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+a{
+    text-decoration: none;
+    font-size: 18px;
+    color: #6b6969;
+}
+.header-item{
+    list-style: none;
+    width: 18%;
+}
+
+a.active{
+    border-bottom: 1px solid black;
+}
