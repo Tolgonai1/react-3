@@ -6,19 +6,27 @@ import './userPage.css'
 export function UserPage(){
     const [user,setUser] = useState({})
     const [posts,setPosts] = useState([])
+    const [todos,setTodos] =useState([])
     const{id} = useParams()
-    const [searchParams,setSearchParams] = useSearchParams()
-    const post = searchParams.get('tab')
+    const [tabParams,setTabParams] = useSearchParams()
+    const post = tabParams.get('tab')
     useEffect(()=>{
         axios.get(`https://dummyjson.com/users/${id}`)
             .then(resp => setUser(resp.data))
     },[])
 
-    useEffect(()=>{
-        const url = post && `https://dummyjson.com/users/${id}/${post}`
-        axios.get(url)
+    useEffect(()=> {
+        const url1 = post && `https://dummyjson.com/users/${id}/${post}`
+        if(post === 'posts'){
+            axios.get(url1)
             .then(resp => setPosts(resp.data.posts))
-    },[post])
+    } else if(post === 'todos'){
+            const url2 = post && `https://dummyjson.com/users/${id}/${post}`
+            axios.get(url2)
+                .then(resp => setTodos(resp.data.todos))
+                .catch(error => console.error('Error:', error))
+        }
+        },[post])
     return (
         <>
         <div className='user-wrapper'>
@@ -43,16 +51,32 @@ export function UserPage(){
             <p>UserAgent: {user.userAgent}</p>
         </div>
             <div className='button-wrapper'>
-                <button onClick={()=>setSearchParams({tab:'posts'})}>Посты</button>
-                <button onClick={() =>setSearchParams({tab: 'todos'})}>Список дел</button>
+                <button onClick={()=>setTabParams({tab:'posts'})}>Посты</button>
+                <button onClick={() =>setTabParams({tab: 'todos'})}>Список дел</button>
             </div>
+            <div className="content-wrapper">
+                {post === 'posts' && (
+                    <div className='posts-wrapper'>
+                        {posts.map(post => (
+                            <div key={post.id} className='post-wrapper'>
+                                <h4>{post.title}</h4>
+                                 <p>{post.body}</p>
+                            </div>
+                         ))}
+                    </div>
+                )}
 
-            {posts.map(post => (
-                <div key={post.id} className='post-wrapper'>
-                    <h4>{post.title}</h4>
-                    <p>{post.body}</p>
-                </div>
-            ))}
+                {post === "todos" && (
+                    <div>
+                {todos.map(todo => (
+                    <div className='todos-wrapper' key={todo.id}>
+                        <h4>{todo.todo}</h4>
+                        <p>{todo.completed  ? 'выполнено' : 'не выполнено'}</p>
+                    </div>
+                ))}
+            </div>
+                )}
+            </div>
         </>
     )
 }

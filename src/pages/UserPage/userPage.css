@@ -21,4 +21,7 @@ button{
     padding: 16px 16px 10px 20px;
     font-size: 18px;
 }
-
+.todos-wrapper{
+    padding: 10px 20px;
+    text-align: center;
+}
